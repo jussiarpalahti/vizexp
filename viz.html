@@ -44,7 +44,7 @@
           .enter()
           .append('path')
           .attr('d', path)
-          .style("fill", "lightblue")
+          .style("fill", d => d.properties.nimi === 'Helsinki' ? "black" : "lightblue")
           .style("stroke-width", "1")
           .style("stroke", "black");
 
