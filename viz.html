@@ -32,7 +32,7 @@
         var projection = d3.geoTransverseMercator().fitSize([width, height], geojson)
                            .rotate([-27,-65,0])
                            .translate([width/2, height/2])
-                           .scale([3800]);
+                           .scale([3300]);
 
         var path = d3.geoPath().projection(projection);
         
