@@ -12,6 +12,23 @@
       <svg style="width:600px;height:600px;" ></svg>
     </div>
     <script>
+
+      //
+      // Data setup
+      //
+
+      let y1994 = [14045, 1723, 14, 2745, 1324, 793, 498, 763, 695, 972, 923, 481, 24976]
+
+      let classifications = [ 100, 500, 1000, 2000, 5000, 15000]
+
+      let colors = colorbrewer.Reds[7];
+      
+      let darker = (color) => d3.rgb(color).darker();
+      
+      // 
+      // Map setup 
+      // 
+      
       var PromiseWrapper = (xhr, d) => new Promise(resolve => xhr(d, (p) => resolve(p)));
 
       Promise
