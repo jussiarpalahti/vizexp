@@ -44,10 +44,19 @@
           .enter()
           .append('path')
           .attr('d', path)
-          .style("fill", d => d.properties.nimi === 'Helsinki' ? "black" : "lightblue")
-          .style("stroke-width", "1")
-          .style("stroke", "black");
-
+          .style("fill", d => d.properties.nimi === 'Helsinki' ? "green" : "lightblue")
+          .style("stroke-width", d => d.properties.nimi === 'Helsinki' ? "3" : "1")
+          .style("stroke", d => {
+            if (d.properties.nimi === 'Helsinki') {
+              return "white"
+            }
+            else if (d.properties.nimi === 'Uusimaa') {
+              return "none"
+            }
+            else {
+              return "black"
+            }
+          });
         }
 
     </script>
