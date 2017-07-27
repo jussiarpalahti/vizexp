@@ -48,7 +48,10 @@
               break;
             }
           }
-          if (!classes[key]) classes[key] = 6;
+          
+          // Values past last classification limit have their own group
+          if (!classes[key]) classes[key] = classifications.length;
+
         }
       );
       
