@@ -16,7 +16,7 @@
 
       Promise
         .all([
-          PromiseWrapper(d3.json, "data/Maakunnat_wgs84_epgs4326.geojson"),
+          PromiseWrapper(d3.json, "data/Maakunnat_wgs84.geojson"),
         ])
         .then(resolve => {
           createMap(resolve[0]);
