@@ -17,13 +17,40 @@
       // Data setup
       //
 
-      let y1994 = [14045, 1723, 14, 2745, 1324, 793, 498, 763, 695, 972, 923, 481, 24976]
+      let y1994 = {
+        'Ahvenanmaan maakunta': '14',
+        'Hämeen lääni': '2745',
+        'Keski-Suomen lääni': '972',
+        'Kuopion lääni': '763',
+        'Kymen lääni': '793',
+        'Lapin lääni': '24976',
+        'Mikkelin lääni': '498',
+        'Oulun lääni': '481',
+        'Pohjois-Karjalan lääni': '695',
+        'Turun ja Porin lääni': '1723',
+        'Uudenmaan lääni': '14045',
+        'Vaasan lääni': '923',
+        'Viipurin lääni': '1324'
+      };
 
-      let classifications = [ 100, 500, 1000, 2000, 5000, 15000]
+      let classifications = [ 100, 500, 1000, 2000, 5000, 15000];
 
       let colors = colorbrewer.Reds[7];
       
       let darker = (color) => d3.rgb(color).darker();
+
+      let classes = {};
+      Object.keys(y1994).forEach(
+        (key) => {
+          for (let [index, limit] of classifications.entries()) {
+            if (y1994[key] < limit) {
+              classes[key] = index;
+              break;
+            }
+          }
+          if (!classes[key]) classes[key] = 6;
+        }
+      );
       
       // 
       // Map setup 
