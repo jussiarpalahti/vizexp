@@ -9,8 +9,8 @@
   </head>
   <body>
     <h1>Maakuntien rajat</h1>
-    <div id="viz">
-      <svg style="width:600px;height:600px;" ></svg>
+    <div>
+        <svg style="width:600px;height:600px;" ></svg>
     </div>
     <script>
 
@@ -19,22 +19,22 @@
       //
 
       let y1994 = {
-        'Ahvenanmaan lääni': '14',
-        'Hämeen lääni': '2745',
-        'Keski-suomen lääni': '972',
-        'Kuopion lääni': '763',
-        'Kymen lääni': '793',
-        'Lapin lääni': '24976',
-        'Mikkelin lääni': '498',
-        'Oulun lääni': '481',
-        'Pohjois-karjalan lääni': '695',
-        'Turun ja porin lääni': '1723',
-        'Uudenmaan lääni': '14045',
-        'Vaasan lääni': '923',
-        'Viipurin lääni': '1324'
-      };
+        'AHVENANMAA': 14,
+        'HÄMEEN LÄÄNI': 2745,
+        'KESKI-SUOMEN LÄÄNI': 972,
+        'KUOPION LÄÄNI': 763,
+        'KYMEN LÄÄNI': 793,
+        'LAPIN LÄÄNI': 24976,
+        'MIKKELIN LÄÄNI': 498,
+        'OULUN LÄÄNI': 481,
+        'POHJOIS-KARJALAN LÄÄNI': 695,
+        'TURUN JA PORIN LÄÄNI': 1723,
+        'UUDENMAAN LÄÄNI': 14045,
+        'VAASAN LÄÄNI': 923,
+        'VIIPURIN LÄÄNI': 1324
+      }
 
-      let classifications = [ 100, 500, 1000, 2000, 5000, 15000, Number.POSITIVE_INFINITY]; // ..and beyond
+      let classifications = [100, 500, 1000, 2000, 5000, 15000, Number.POSITIVE_INFINITY]; // ..and beyond
 
       let suomenlinna = "#F5A3C7";
       let colors = colorbrewer.Blues[7];
@@ -61,7 +61,7 @@
 
       Promise
         .all([
-          PromiseWrapper(d3.json, "data/laanit.geojson"),
+          PromiseWrapper(d3.json, "data/Laanit_1960_1994_7.geojson"),
         ])
         .then(resolve => {
           createMap(resolve[0]);
@@ -92,17 +92,15 @@
           .style("fill", d => {
               if (d.properties.LAANI === 'HELSINKI') return suomenlinna; // Suomenlinna
               else {
-                let name = d.properties.LAANI.charAt(0) + d.properties.LAANI.toLowerCase().slice(1);
-                return colors[classes[name]];
+                return colors[classes[d.properties.LAANI]];
               }
             })
-          .style("stroke-width", d => d.properties.LAANI === 'Helsinki' ? "3" : "1")
+          .style("stroke-width", d => d.properties.LAANI === 'HELSINKI' ? "3" : "1")
           .style("stroke", d => {
-            let name = d.properties.LAANI.charAt(0) + d.properties.LAANI.toLowerCase().slice(1);
-            switch (name) {
-              case 'Helsinki':
+            switch (d.properties.LAANI) {
+              case 'HELSINKI':
                 return darker(suomenlinna);
-              case'Uudenmaan lääni':
+              case 'UUDENMAAN LÄÄNI':
                 return "none"
               default:
                 return "white"
