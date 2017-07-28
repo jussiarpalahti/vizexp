@@ -36,7 +36,8 @@
 
       let classifications = [ 100, 500, 1000, 2000, 5000, 15000, Number.POSITIVE_INFINITY]; // ..and beyond
 
-      let colors = colorbrewer.Reds[7];
+      let suomenlinna = "#F5A3C7";
+      let colors = colorbrewer.Blues[7];
       
       let darker = (color) => d3.rgb(color).darker();
 
@@ -89,23 +90,22 @@
           .append('path')
           .attr('d', path)
           .style("fill", d => {
-              if (d.properties.LAANI === 'HELSINKI') return "crimson";
+              if (d.properties.LAANI === 'HELSINKI') return suomenlinna; // Suomenlinna
               else {
                 let name = d.properties.LAANI.charAt(0) + d.properties.LAANI.toLowerCase().slice(1);
                 return colors[classes[name]];
               }
             })
-          .style("stroke-width", d => d.properties.nimi === 'Helsinki' ? "3" : "1")
+          .style("stroke-width", d => d.properties.LAANI === 'Helsinki' ? "3" : "1")
           .style("stroke", d => {
             let name = d.properties.LAANI.charAt(0) + d.properties.LAANI.toLowerCase().slice(1);
-            if (name === 'Helsinki') {
-              return "white"
-            }
-            else if (name === 'Uusimaa') {
-              return "none"
-            }
-            else {
-              return darker(colors[classes[name]]);
+            switch (name) {
+              case 'Helsinki':
+                return darker(suomenlinna);
+              case'Uudenmaan lääni':
+                return "none"
+              default:
+                return "white"
             }
           });
         }
