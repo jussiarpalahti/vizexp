@@ -5,34 +5,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.8/d3.min.js" type="text/JavaScript"></script>
     <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
     <script src="assets/colorbrewer.js"></script>
+    <style type="text/css">
+      /*body {*/
+        /*background-color: black;*/
+      /*}*/
+      /*body * {*/
+        /*color: white;*/
+      /*}*/
+
+    </style>
     <title>Maakuntien rajat</title>
   </head>
   <body>
     <h1>Maakuntien rajat</h1>
     <div>
-        <svg style="width:600px;height:600px;" ></svg>
+        <svg style="width:400px;height:600px;" ></svg>
     </div>
     <script>
 
       //
       // Data setup
       //
+      let year = '1994';
 
-      let y1994 = {
-        'AHVENANMAA': 14,
-        'HÄMEEN LÄÄNI': 2745,
-        'KESKI-SUOMEN LÄÄNI': 972,
-        'KUOPION LÄÄNI': 763,
-        'KYMEN LÄÄNI': 793,
-        'LAPIN LÄÄNI': 24976,
-        'MIKKELIN LÄÄNI': 498,
-        'OULUN LÄÄNI': 481,
-        'POHJOIS-KARJALAN LÄÄNI': 695,
-        'TURUN JA PORIN LÄÄNI': 1723,
-        'UUDENMAAN LÄÄNI': 14045,
-        'VAASAN LÄÄNI': 923,
-        'VIIPURIN LÄÄNI': 1324
-      }
+      let data = {
+          '1994' : {
+            'AHVENANMAA': 14,
+            'HÄMEEN LÄÄNI': 2745,
+            'KESKI-SUOMEN LÄÄNI': 972,
+            'KUOPION LÄÄNI': 763,
+            'KYMEN LÄÄNI': 793,
+            'LAPIN LÄÄNI': 24976,
+            'MIKKELIN LÄÄNI': 498,
+            'OULUN LÄÄNI': 481,
+            'POHJOIS-KARJALAN LÄÄNI': 695,
+            'TURUN JA PORIN LÄÄNI': 1723,
+            'UUDENMAAN LÄÄNI': 14045,
+            'VAASAN LÄÄNI': 923,
+            'VIIPURIN LÄÄNI': 1324
+          }
+      };
 
       let classifications = [100, 500, 1000, 2000, 5000, 15000, Number.POSITIVE_INFINITY]; // ..and beyond
 
@@ -40,18 +52,6 @@
       let colors = colorbrewer.Blues[7];
       
       let darker = (color) => d3.rgb(color).darker();
-
-      let classes = {};
-      Object.keys(y1994).forEach(
-        (key) => {
-          for (let [index, limit] of classifications.entries()) {
-            if (y1994[key] < limit) {
-              classes[key] = index;
-              break;
-            }
-          }
-        }
-      );
       
       // 
       // Map setup 
@@ -64,12 +64,24 @@
           PromiseWrapper(d3.json, "data/Laanit_1960_1994_7.geojson"),
         ])
         .then(resolve => {
-          createMap(resolve[0]);
+          createMap(resolve[0], year);
         });
 
-      function createMap(geojson) {
-        
-        var width = 800,
+      function createMap(geojson, year) {
+
+        let classes = {};
+        Object.keys(data[year]).forEach(
+            (key) => {
+                for (let [index, limit] of classifications.entries()) {
+                    if (data[year][key] < limit) {
+                        classes[key] = index;
+                        break;
+                    }
+                }
+            }
+        );
+
+        var width = 400,
             height = 600;
         
         var svg = d3.select("svg");
@@ -101,9 +113,9 @@
               case 'HELSINKI':
                 return darker(suomenlinna);
               case 'UUDENMAAN LÄÄNI':
-                return "none"
+                return "none";
               default:
-                return "white"
+                return "white";
             }
           });
         }
