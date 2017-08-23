@@ -74,36 +74,27 @@
         let r4 = await fetch("data/Maakunnat_wgs84.geojson");
         let map_maakunnat = await r4.json();
 
-        console.log("hrm", map_laanit, laanit, maakunnat, map_maakunnat);
+        return {map_laanit, laanit, maakunnat, map_maakunnat};
 
       }
 
-      loader();
-
-//
-//      var PromiseWrapper = (xhr, d) => new Promise(resolve => xhr(d, (p) => resolve(p)));
-//
-//      Promise
-//        .all([
-//          PromiseWrapper(d3.json, "data/Laanit_1960_1994_7.geojson"),
-//        ])
-//        .then(resolve => {
-//          createMap(resolve[0], year);
-//        });
-
-      function createMap(geojson, year) {
+      function createMap(geojson, data) {
 
         let classes = {};
-        Object.keys(data[year]).forEach(
+        Object.keys(data).forEach(
             (key) => {
+
+                if (key === 'VUOSI') return;
+
                 for (let [index, limit] of classifications.entries()) {
-                    if (data[year][key] < limit) {
+                    if (data[key] < limit) {
                         classes[key] = index;
                         break;
                     }
                 }
             }
         );
+        console.log("classes", data, classes);
 
         var width = 400,
             height = 600;
@@ -143,6 +134,13 @@
             }
           });
         }
+
+      async function render() {
+            let {map_laanit, laanit, maakunnat, map_maakunnat} = await loader();
+            createMap(map_laanit, laanit[laanit.length - 2]);
+        }
+
+      render();
 
     </script>
   </body>
