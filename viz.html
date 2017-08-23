@@ -6,13 +6,12 @@
     <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
     <script src="assets/colorbrewer.js"></script>
     <style type="text/css">
-      /*body {*/
-        /*background-color: black;*/
-      /*}*/
-      /*body * {*/
-        /*color: white;*/
-      /*}*/
-
+      body {
+        background-color: black;
+      }
+      body * {
+        color: white;
+      }
     </style>
     <title>Maakuntien rajat</title>
   </head>
@@ -55,17 +54,42 @@
       
       // 
       // Map setup 
-      // 
+      //
       
-      var PromiseWrapper = (xhr, d) => new Promise(resolve => xhr(d, (p) => resolve(p)));
+      async function loader() {
 
-      Promise
-        .all([
-          PromiseWrapper(d3.json, "data/Laanit_1960_1994_7.geojson"),
-        ])
-        .then(resolve => {
-          createMap(resolve[0], year);
-        });
+        let r1 = await fetch("data/Laanit_1960_1994_7.geojson");
+        let map_laanit = await r1.json();
+
+        let r2 = await fetch('data/laanit.csv');
+        let laanit_text = await r2.text();
+        let laanit = [];
+        d3.dsvFormat(';').parse(laanit_text, (d) => laanit.push(d));
+
+        let r3 = await fetch('data/maakunnat.csv');
+        let maakunnat_text = await r3.text();
+        let maakunnat = [];
+        d3.dsvFormat(';').parse(maakunnat_text, (d) => maakunnat.push(d));
+
+        let r4 = await fetch("data/Maakunnat_wgs84.geojson");
+        let map_maakunnat = await r4.json();
+
+        console.log("hrm", map_laanit, laanit, maakunnat, map_maakunnat);
+
+      }
+
+      loader();
+
+//
+//      var PromiseWrapper = (xhr, d) => new Promise(resolve => xhr(d, (p) => resolve(p)));
+//
+//      Promise
+//        .all([
+//          PromiseWrapper(d3.json, "data/Laanit_1960_1994_7.geojson"),
+//        ])
+//        .then(resolve => {
+//          createMap(resolve[0], year);
+//        });
 
       function createMap(geojson, year) {
 
@@ -88,7 +112,7 @@
 
         var projection = d3.geoTransverseMercator().fitSize([width, height], geojson)
                            .rotate([-27,-65,0])
-                           .translate([width/2, height/2])
+                           .translate([(width/2) + 30, height/2])
                            .scale([3300]);
 
         var path = d3.geoPath().projection(projection);
