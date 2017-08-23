@@ -84,7 +84,14 @@
         Object.keys(data).forEach(
             (key) => {
 
+                // Year is currently embedded into data object
                 if (key === 'VUOSI') return;
+
+                // Empty data for this space
+                if (data[key] === "") {
+                    classes[key] = null;
+                    return
+                }
 
                 for (let [index, limit] of classifications.entries()) {
                     if (data[key] < limit) {
@@ -94,7 +101,6 @@
                 }
             }
         );
-        console.log("classes", data, classes);
 
         var width = 400,
             height = 600;
@@ -118,7 +124,7 @@
           .attr('d', path)
           .style("fill", d => {
               if (d.properties.LAANI === 'HELSINKI') return suomenlinna; // Suomenlinna
-              else {
+              else if (classes[d.properties.LAANI]) {
                 return colors[classes[d.properties.LAANI]];
               }
             })
@@ -137,7 +143,7 @@
 
       async function render() {
             let {map_laanit, laanit, maakunnat, map_maakunnat} = await loader();
-            createMap(map_laanit, laanit[laanit.length - 2]);
+            createMap(map_laanit, laanit[0]);
         }
 
       render();
