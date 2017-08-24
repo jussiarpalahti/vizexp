@@ -61,15 +61,18 @@
 
       async function loader() {
 
-        let r1 = await fetch("data/Laanit_1960_1994_7.geojson");
-        let map_laanit = await r1.json();
+        let maps = {};
+
+        map_names.forEach(async function (name) {
+            let res = await fetch(name);
+            let map = await res.json();
+            maps[name] = map;
+        });
 
         let r2 = await fetch('data/laanit.csv');
         let laanit_text = await r2.text();
-
         let laanit_list = [];
         d3.dsvFormat(';').parse(laanit_text, (d) => laanit_list.push(d));
-
         let laanit = {};
         laanit_list.forEach(
               (item) => laanit[item["VUOSI"]] = _.omit(item, ['VUOSI', 'Yhteensä', ""])
@@ -79,7 +82,6 @@
         let maakunnat_text = await r3.text();
         let maakunnat_list = [];
         d3.dsvFormat(';').parse(maakunnat_text, (d) => maakunnat_list.push(d));
-
         let maakunnat = {};
         maakunnat_list.forEach(
             (item) => maakunnat[item["VUOSI"]] = _.omit(item, ['VUOSI', 'Yhteensä', ""])
@@ -89,10 +91,7 @@
         Object.assign(data, laanit);
         Object.assign(data, maakunnat);
 
-        let r4 = await fetch("data/Maakunnat_wgs84.geojson");
-        let map_maakunnat = await r4.json();
-
-        return {map_laanit, data, map_maakunnat};
+        return {maps, data};
 
       }
 
@@ -160,8 +159,8 @@
         }
 
       async function render() {
-            let {map_laanit, data, map_maakunnat} = await loader();
-            createMap(map_laanit, data[year]);
+            let {maps, data} = await loader();
+            createMap(maps['data/Laanit_1960_1994_7.geojson'], data[year]);
         }
 
       render();
