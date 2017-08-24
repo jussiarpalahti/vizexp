@@ -26,7 +26,7 @@
       //
       // Data setup
       //
-      let year = '1994';
+      let year = 1971;
 
       let classifications = [100, 500, 1000, 2000, 5000, 15000, Number.POSITIVE_INFINITY]; // ..and beyond
 
@@ -38,7 +38,7 @@
           'data/Laanit_1945_1947_5.geojson',
           'data/Laanit_1948_1959_6.geojson',
           'data/Laanit_1960_1994_7.geojson',
-          'data/Maakunnat_wgs84.geojson'
+          'data/Maakunnat_8.geojson'
       ];
       let map_ranges = [1921, 1938, 1941, 1945, 1948, 1960, 1995, Number.POSITIVE_INFINITY];
 
@@ -46,13 +46,16 @@
       let colors = colorbrewer.Blues[7];
       
       let darker = (color) => d3.rgb(color).darker();
-      
+
       function get_map_for_year(year) {
-          map_ranges.forEach((range, index) => {
+          let x;
+          map_ranges.find((range, index) => {
               if (year < range) {
-                  return map_names[index];
+                  x = map_names[index];
+                  return true;
               }
           });
+          return x;
       }
 
       //
@@ -75,7 +78,11 @@
         d3.dsvFormat(';').parse(laanit_text, (d) => laanit_list.push(d));
         let laanit = {};
         laanit_list.forEach(
-              (item) => laanit[item["VUOSI"]] = _.omit(item, ['VUOSI', 'Yhteensä', ""])
+              (item) => {
+                  const y = item["VUOSI"];
+                  laanit[y] = _.omit(item, ['VUOSI', 'Yhteensä', ""]);
+                  laanit[y]['map'] = get_map_for_year(y);
+              }
         );
 
         let r3 = await fetch('data/maakunnat.csv');
@@ -84,7 +91,11 @@
         d3.dsvFormat(';').parse(maakunnat_text, (d) => maakunnat_list.push(d));
         let maakunnat = {};
         maakunnat_list.forEach(
-            (item) => maakunnat[item["VUOSI"]] = _.omit(item, ['VUOSI', 'Yhteensä', ""])
+            (item) => {
+                const y = item["VUOSI"];
+                maakunnat[y] = _.omit(item, ['VUOSI', 'Yhteensä', ""]);
+                maakunnat[y]['map'] = get_map_for_year(y);
+            }
         );
 
         let data = {};
@@ -140,14 +151,14 @@
           .append('path')
           .attr('d', path)
           .style("fill", d => {
-              if (d.properties.LAANI === 'HELSINKI') return suomenlinna; // Suomenlinna
-              else if (classes[d.properties.LAANI] !== null) {
-                return colors[classes[d.properties.LAANI]];
+              if (d.properties.nimi === 'HELSINKI') return suomenlinna; // Suomenlinna
+              else if (classes[d.properties.nimi] !== null) {
+                return colors[classes[d.properties.nimi]];
               }
             })
-          .style("stroke-width", d => d.properties.LAANI === 'HELSINKI' ? "3" : "1")
+          .style("stroke-width", d => d.properties.nimi === 'HELSINKI' ? "3" : "1")
           .style("stroke", d => {
-            switch (d.properties.LAANI) {
+            switch (d.properties.nimi) {
               case 'HELSINKI':
                 return darker(suomenlinna);
               case 'UUDENMAAN LÄÄNI':
@@ -160,7 +171,7 @@
 
       async function render() {
             let {maps, data} = await loader();
-            createMap(maps['data/Laanit_1960_1994_7.geojson'], data[year]);
+            createMap(maps[data[year]["map"]], data[year]);
         }
 
       render();
