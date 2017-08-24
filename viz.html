@@ -30,13 +30,31 @@
 
       let classifications = [100, 500, 1000, 2000, 5000, 15000, Number.POSITIVE_INFINITY]; // ..and beyond
 
+      let map_names = [
+          'data/Laanit_1917_1920_1.geojson',
+          'data/Laanit_1921_1937_2.geojson',
+          'data/Laanit_1938_1940_3.geojson',
+          'data/Laanit_1941_1944_4.geojson',
+          'data/Laanit_1945_1947_5.geojson',
+          'data/Laanit_1948_1959_6.geojson',
+          'data/Laanit_1960_1994_7.geojson',
+          'data/Maakunnat_wgs84.geojson'
+      ];
+      let map_ranges = [1921, 1938, 1941, 1945, 1948, 1960, 1995, Number.POSITIVE_INFINITY];
+
       let suomenlinna = "#F5A3C7";
       let colors = colorbrewer.Blues[7];
       
       let darker = (color) => d3.rgb(color).darker();
       
-      // 
-      // Map setup 
+      function get_map_for_year(year) {
+          map_ranges.forEach((range, index) => {
+              if (year < range) {
+                  return map_names[index];
+              }
+          });
+      }
+
       //
       // Fetching maps and data
       //
