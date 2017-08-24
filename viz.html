@@ -133,7 +133,7 @@
 
         var width = 400,
             height = 600;
-          
+
         var svg = d3.select("svg");
         svg.selectAll("*").remove();
 
@@ -168,7 +168,15 @@
               default:
                 return "white";
             }
-          });
+          })
+          .append("title").text(d => {
+              if (d.properties.nimi === 'HELSINKI') return "suomenlinna"; // Suomenlinna
+              else if (classes[d.properties.nimi] !== null) {
+                  console.log("data", data[d.properties.nimi]);
+                  return d.properties.nimi + " " + data[d.properties.nimi];
+              }
+          })
+        ;
         }
 
       async function render(year) {
