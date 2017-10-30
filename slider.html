@@ -115,6 +115,9 @@
               .data(_.range(year - 1, end_year + 1))
               .enter()
               .append("button")
+              .on('click', d => {
+                  console.log("got year", d);
+              })
               .attr('class', d => {
                   if (d === year) return "start";
                   if (d === end_year) return "end";
