@@ -1,0 +1,9 @@
+
+button {
+    display: inline;
+}
+
+button.hide {
+    display: none;
+}
+

@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.8/d3.min.js" type="text/JavaScript"></script>
+    <script src="https://d3js.org/d3-scale.v1.min.js"></script>
+    <script src="https://d3js.org/d3-axis.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+    <script src="assets/colorbrewer.js"></script>
+    <link rel="stylesheet" href="css/styling.css">
+    <style type="text/css">
+      body {
+        background-color: black;
+      }
+      body * {
+        color: #eff3ff;
+      }
+    </style>
+    <title>Helsinkiin muuttaneet lääneittäin ja maakunnittain 1917-2016</title>
+  </head>
+  <body>
+    <h1>Helsinkiin muuttaneet lääneittäin ja maakunnittain 1917-2016</h1>
+
+    <div id="times"></div>
+    <script>
+
+      //
+      // Data setup
+      //
+      let maps, data;
+      let year = 1917;
+      let end_year = 2016;
+
+      let classifications = [100, 500, 1000, 2000, 5000, 15000, Number.POSITIVE_INFINITY]; // ..and beyond
+
+      let map_names = [
+          'data/Laanit_1917_1920_1.geojson',
+          'data/Laanit_1921_1937_2.geojson',
+          'data/Laanit_1938_1940_3.geojson',
+          'data/Laanit_1941_1944_4.geojson',
+          'data/Laanit_1945_1947_5.geojson',
+          'data/Laanit_1948_1959_6.geojson',
+          'data/Laanit_1960_1994_7.geojson',
+          'data/Maakunnat_8.geojson'
+      ];
+      let map_ranges = [1921, 1938, 1941, 1945, 1948, 1960, 1995, Number.POSITIVE_INFINITY];
+
+      let suomenlinna = "#F5A3C7";
+      let colors = colorbrewer.Blues[7];
+      
+      let darker = (color) => d3.rgb(color).darker();
+
+      function get_map_for_year(year) {
+          let x;
+          map_ranges.find((range, index) => {
+              if (year < range) {
+                  x = map_names[index];
+                  return true;
+              }
+          });
+          return x;
+      }
+
+      //
+      // Fetching maps and data
+      //
+
+      async function loader() {
+
+        let maps = {};
+
+        map_names.forEach(async function (name) {
+            let res = await fetch(name);
+            let map = await res.json();
+            maps[name] = map;
+        });
+
+        let r2 = await fetch('data/laanit.csv');
+        let laanit_text = await r2.text();
+        let laanit_list = [];
+        d3.dsvFormat(';').parse(laanit_text, (d) => laanit_list.push(d));
+        let laanit = {};
+        laanit_list.forEach(
+              (item) => {
+                  const y = item["VUOSI"];
+                  laanit[y] = _.omit(item, ['VUOSI', 'Yhteensä', ""]);
+                  laanit[y]['map'] = get_map_for_year(y);
+              }
+        );
+
+        let r3 = await fetch('data/maakunnat.csv');
+        let maakunnat_text = await r3.text();
+        let maakunnat_list = [];
+        d3.dsvFormat(';').parse(maakunnat_text, (d) => maakunnat_list.push(d));
+        let maakunnat = {};
+        maakunnat_list.forEach(
+            (item) => {
+                const y = item["VUOSI"];
+                maakunnat[y] = _.omit(item, ['VUOSI', 'Yhteensä', ""]);
+                maakunnat[y]['map'] = get_map_for_year(y);
+            }
+        );
+
+        let data = {};
+        Object.assign(data, laanit);
+        Object.assign(data, maakunnat);
+
+        return {maps, data};
+
+      }
+
+      function build_timesline() {
+          d3.select("#times")
+              .data(_.range(year - 1, end_year + 1))
+              .enter()
+              .append("button")
+              .attr('class', d => {
+                  if (d === year) return "start";
+                  if (d === end_year) return "end";
+                  if (d % 10 != 0) return "hide";
+                  else return "mark";
+              })
+              .text(d => {
+                  if (d === year || d === end_year) return d;
+                  if (d % 10 == 0) return d;
+              });
+      }
+
+      async function render(year) {
+          if (!maps && !data) {
+              let res = await loader();
+              maps = res["maps"];
+              data = res["data"];
+          }
+
+          build_timesline();
+
+      }
+
+      function set_year(year) {
+        render(year);
+      }
+
+      render(year);
+
+    </script>
+  </body>
+</html>
