@@ -93,6 +93,7 @@
           <div id="sliideri" style="margin: 3em; width: 30em;">
             <input type="text" id="slider">
           </div>
+          <div id="animate"><button>Animaatio</button></div>
           <div id="console"></div>
         </div>
       </section>
@@ -307,6 +308,7 @@
                   _.range(start_year, end_year).filter(v => v % 10 == 0),
                   end_year
               ]);
+              let years = _.range(start_year, end_year);
               let mySlider = new Slider("input#slider", {
                   ticks: stuff,
                   ticks_labels: stuff,
@@ -316,6 +318,30 @@
               });
 
               mySlider.on('change', v => set_year(v.newValue));
+
+              let animate;
+
+              function advancer(num) {
+                  if (animate && num < end_year) {
+                      mySlider.setValue(num, true, true);
+                      setTimeout(() => {
+                          advancer(num + 1);
+                      }, 1000);
+                  }
+              }
+
+              d3.select('#animate button')
+                  .on('click', function () {
+                      console.log("hrm", this);
+                      if (animate) {
+                          animate = false;
+                          d3.select(this).text('Animaatio');
+                      } else {
+                          animate = true;
+                          d3.select(this).text('Stop');
+                      }
+                      advancer(year);
+                  });
           }
           createMap(maps[data[year]["map"]], data[year]);
         }
