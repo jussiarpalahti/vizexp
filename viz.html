@@ -86,6 +86,7 @@
           <div id="viz">
             <svg style="width:400px; height:600px;" ></svg>
           </div>
+          <div id="legend"></div>
         </div>
       </section>
       <section class="section--content bg-hel-metro">
@@ -305,7 +306,7 @@
               // Instantiate a slider
               let stuff = _.flatten([
                   start_year,
-                  _.range(start_year, end_year).filter(v => v % 10 == 0),
+                  _.range(start_year, end_year).filter(v => v % 10 === 0),
                   end_year
               ]);
               let years = _.range(start_year, end_year);
@@ -342,9 +343,22 @@
                       }
                       advancer(year);
                   });
+
+              make_legend(classifications, colors);
+
           }
           createMap(maps[data[year]["map"]], data[year]);
         }
+
+      function make_legend (classifications, colors) {
+          d3.select('div#legend')
+              .selectAll('span')
+              .data(colors)
+              .enter()
+              .append('span')
+              .attr('style', d => 'background-color:' + d)
+              .text((d, i) => classifications[i]);
+      }
 
       function set_year(year) {
         render(year);

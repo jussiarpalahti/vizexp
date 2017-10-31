@@ -10,3 +10,14 @@
 #animate button {
     width: 10em;
 }
+
+#legend {
+    width: 15em;
+    background-color: white;
+    padding: 0.3em 0.5em;
+}
+
+#legend span {
+    margin: 0.5em 0.3em;
+    display: block;
+}
