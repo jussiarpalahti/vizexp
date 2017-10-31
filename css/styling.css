@@ -1,9 +1,8 @@
 
-button {
-    display: inline;
+#ranger {
+    color: white;
 }
 
-button.hide {
-    display: none;
+#sliideri .slider {
+    width: 40em;
 }
-
