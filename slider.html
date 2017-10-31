@@ -7,6 +7,8 @@
     <script src="https://d3js.org/d3-axis.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/bootstrap-slider.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.9.0/css/bootstrap-slider.min.css">
     <script src="assets/colorbrewer.js"></script>
     <link rel="stylesheet" href="css/styling.css">
     <style type="text/css">
@@ -22,14 +24,19 @@
   <body>
     <h1>Helsinkiin muuttaneet lääneittäin ja maakunnittain 1917-2016</h1>
 
-    <div id="times"></div>
+    <div id="sliideri">
+      <input type="text" id="slider">
+    </div>
+
+    <div id="console"></div>
+
     <script>
 
       //
       // Data setup
       //
       let maps, data;
-      let year = 1917;
+      let start_year = 1917;
       let end_year = 2016;
 
       let classifications = [100, 500, 1000, 2000, 5000, 15000, Number.POSITIVE_INFINITY]; // ..and beyond
@@ -110,24 +117,28 @@
 
       }
 
-      function build_timesline() {
+      function build_timesline(year) {
           d3.select("#times")
-              .data(_.range(year - 1, end_year + 1))
+              .selectAll('button')
+              .data(_.range(start_year, end_year + 1))
               .enter()
-              .append("button")
+              .append('button')
               .on('click', d => {
                   console.log("got year", d);
+                  set_year(d);
               })
+              .attr('type', 'button')
+              .attr('title', d => d)
               .attr('class', d => {
-                  if (d === year) return "start";
+                  if (d === start_year) return "start";
                   if (d === end_year) return "end";
                   if (d % 10 != 0) return "hide";
                   else return "mark";
               })
-              .text(d => {
-                  if (d === year || d === end_year) return d;
-                  if (d % 10 == 0) return d;
-              });
+              .classed('active', d => d === year)
+              .text(d => d)
+              .append('span')
+              .text('↑');
       }
 
       async function render(year) {
@@ -135,17 +146,24 @@
               let res = await loader();
               maps = res["maps"];
               data = res["data"];
-          }
+              // Instantiate a slider
+              let mySlider = new Slider("input#slider", {
+                  ticks: [0, 100, 200, 300, 400],
+                  ticks_labels: ['$0', '$100', '$200', '$300', '$400'],
+              });
 
-          build_timesline();
+              mySlider.on('change', v => set_year(v.newValue));
+          }
 
       }
 
       function set_year(year) {
+        d3.select("#times").selectAll("*").remove();
+        d3.select('#console').text(year);
         render(year);
       }
 
-      render(year);
+      render(start_year);
 
     </script>
   </body>
