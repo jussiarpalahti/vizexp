@@ -7,6 +7,10 @@
     width: 40em;
 }
 
+#animate {
+    text-align: right;
+}
+
 #animate button {
     width: 10em;
 }
