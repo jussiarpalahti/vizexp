@@ -152,7 +152,7 @@
       let end_year = 2016;
 
       let classifications = [100, 500, 1000, 2000, 5000, 15000, Number.POSITIVE_INFINITY]; // ..and beyond
-      let explanations = ['alle 100', '100 - 500', '500 - 1000', '2000 - 5000', '5000 - 15 000', 'yli 15 000'];
+      let explanations = ['alle 100', '100 - 500', '500 - 1 000', '1 000 - 2 000', '2 000 - 5 000', '5 000 - 15 000', 'yli 15 000'];
 
       let map_names = [
           'data/Laanit_1917_1920_1.geojson',
@@ -346,12 +346,12 @@
                   advancer(year);
               });
 
-          make_legend(classifications, colors);
+          make_legend();
 
           createMap(maps[data[year]["map"]], data[year]);
         }
 
-      function make_legend (classifications, colors) {
+      function make_legend () {
           d3.select('div#legend')
               .selectAll('span')
               .data(colors)
