@@ -89,7 +89,6 @@
               <div id="sliideri" style="margin: 3em; width: 30em;">
                 <input type="text" id="slider">
               </div>
-              <div id="console"></div>
             </div>
             <div class="col-xs-4">
               <div id="legend"></div>
@@ -153,6 +152,7 @@
       let end_year = 2016;
 
       let classifications = [100, 500, 1000, 2000, 5000, 15000, Number.POSITIVE_INFINITY]; // ..and beyond
+      let explanations = ['alle 100', '100 - 500', '500 - 1000', '2000 - 5000', '5000 - 15 000', 'yli 15 000'];
 
       let map_names = [
           'data/Laanit_1917_1920_1.geojson',
@@ -329,7 +329,7 @@
                   mySlider.setValue(num, true, true);
                   setTimeout(() => {
                       advancer(num + 1);
-                  }, 1000);
+                  }, 500);
               }
           }
 
@@ -358,7 +358,7 @@
               .enter()
               .append('span')
               .attr('style', d => 'background-color:' + d)
-              .text((d, i) => classifications[i]);
+              .text((d, i) => explanations[i]);
       }
 
       function set_year(year) {
