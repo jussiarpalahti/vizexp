@@ -21,12 +21,21 @@
     padding: 0.3em 0.5em;
 }
 
-#legend span {
+#legend .color {
     margin: 0.5em 0.3em;
     display: block;
-    padding: 0.5em;
-    color: white;
+    color: black;
     font-size: 90%;
+    padding: 0.3em;
+}
+
+#legend .color .label {
+    width: 10em;
+    height: 2.5em;
+    padding: 2em;
+    margin: -1.5em;
+    background: white;
+    display: inline-block;
 }
 
 #suomi100logo {
