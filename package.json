@@ -3,5 +3,24 @@
     "d3": "^4.10.0",
     "d3-queue": "^3.0.7",
     "lodash": "^4.17.4"
-  }
+  },
+  "name": "vizexp",
+  "description": "",
+  "version": "1.0.0",
+  "main": "code.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "wright": "wright viz.html --debug 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jussiarpalahti/vizexp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jussiarpalahti/vizexp/issues"
+  },
+  "homepage": "https://github.com/jussiarpalahti/vizexp#readme"
 }
