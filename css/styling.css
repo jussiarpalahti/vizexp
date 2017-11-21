@@ -42,3 +42,8 @@
     width: 150px;
     height: auto;
 }
+
+#hero_pic_copy {
+    color: silver;
+    font-size: 80%;
+}
