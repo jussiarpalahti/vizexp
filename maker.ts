@@ -1,3 +1,4 @@
+import "whatwg-fetch"
 
 import *  as colorbrewer from './assets/colorbrewer';
 

@@ -3,11 +3,13 @@
     "@types/d3": "^4.11.1",
     "@types/d3-geo": "^1.9.3",
     "@types/lodash": "^4.14.85",
+    "@types/whatwg-fetch": "0.0.33",
     "d3": "^4.10.0",
     "d3-geo": "^1.9.0",
     "d3-geo-projection": "^2.3.1",
     "d3-queue": "^3.0.7",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "whatwg-fetch": "^2.0.3"
   },
   "name": "vizexp",
   "description": "",
