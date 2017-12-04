@@ -41,12 +41,6 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-            <span class="sr-only">Valikko</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
           <a href="#site-root" class="navbar-brand" title="Site Title" data-placement="bottom">
             Helsinkiin muuttaneet lääneittäin ja maakunnittain 1917-2016
           </a>
@@ -98,15 +92,19 @@
       <section class="section--content bg-hel-fog">
         <div class="container">
           <div class="row">
-            <div class="col-xs-8 col-lg-5">
+            <div class="col-xs-6 col-sm-5 col-sm-offset-2">
               <div id="viz"><svg style="width:350px; height:500px;" ></svg></div>
-              <div id="animate"><button>Animaatio</button></div>
-              <div id="sliideri" style="margin: 3em; width: 30em;">
+            </div>
+            <div class="col-xs-6 col-sm-3">
+              <div id="legend"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+              <div id="animate"><button class="btn btn-primary btn-sm">Animaatio</button></div>
+              <div id="sliideri">
                 <input type="text" id="slider">
               </div>
-            </div>
-            <div class="col-xs-4">
-              <div id="legend"></div>
             </div>
           </div>
         </div>
@@ -114,7 +112,7 @@
       <section class="section--content bg-hel-metro">
           <div class="container">
             <div class="row">
-              <div class="col-xs-12 col-lg-8">
+              <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                   <div id="ae0d3e2d-4af6-46cc-b72f-c934c6995948" style="width: 100%; height: 100%;" class="plotly-graph-div"></div>
               </div>
             </div>
@@ -122,13 +120,13 @@
         </section>
       <section class="section--content bg-hel-silver">
         <div class="container">
-            <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-3"><p>Helsingissä oli 155.735 asukasta vuonna 1917 ja nyt väkiluku on kasvanut 645.000:een. Väestön määrä on siis nelinkertaistunut itsenäisyyden aikana. Helsinki kasvoi erittäin nopeasti 1920- ja 1930-luvuilla, keskimäärin 3,3 prosentin vuosivauhtia. Kasvu tuli kokonaan muualta Suomesta muuttaneista, koska kuolleiden määrä oli lähes yhtä suuri kuin syntyneiden. 1930-luvun alun pulavuodet näkyvät erityisesti vuonna 1931, jolloin kirjattiin peräti 17.400 asukkaan muuttovoitto. Kasvu kiihtyi 1930-luvun loppua kohti, kunnes Talvisota katkaisi kehityksen. Tulijat olivat lähtöisin Uudenmaan lisäksi useimmiten Hämeen, Turun ja Porin sekä Viipurin lääneistä. Siirtokarjalaisten asuttaminen kasvatti sodan jälkeen Helsingin väestöä huomattavasti. Uudellamaalla asui 1940-luvun lopulla 70.000 Karjalasta lähtenyttä, joista pääosa Helsingissä.</p></div>
-            <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-3"><p>Sotien jälkeen tehtiin suuri alueliitos vuonna 1946, joka toi yli 50.000 uutta helsinkiläistä. Vuosina 1948-1966 Helsinki kasvoi tasaisesti ja nopeasti, keskimäärin 2 % vuodessa. Kaupunkiin alkoi muuttaa aikaisempaa selvästi enemmän asukkaita, mutta myös poismuutto kasvoi, joten muuttovoitto, joka oli keskimäärin 6.500 asukasta vuodessa, alkoi pienentyä. Muuttajia alkoi nyt tulla enemmän myös kauempaa, Kuopion, Vaasan ja Oulun lääneistä Tuona aikana syntyivät kuitenkin ensin suuret ikäluokat ja kuolleisuus laski, joten vain 60 prosenttia Helsingin väestökasvusta johtui muuttovoitosta.</p></div>
-            <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-3"><p>Suuri käänne tapahtui 1960-luvun lopulla. Kohonnut elintaso ja sen myötä asumistason parantaminen käänsivät Helsingin väestönkasvun naapurikuntiin, vaikka asuntoja rakennettiin paljon. Tulomuutto väheni maakunnista, joista alettiin nyt muuttaa myös Ruotsiin. Helsingin väkiluku putosi vuoden 1968 lopusta 1970-luvun loppuun 42.000 hengellä. Vastaavasti Espoo ja Vantaa kasvoivat nopeasti, Vantaalla väestönkasvu jopa ylitti 10 prosenttia useana vuonna 1970-luvun alussa. Helsingin kasvu oli sen sijaan hyvin vaatimatonta 1990-luvun alkuun saakka.</p></div>
-            <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-3"><p>1990-luvun lama näkyi Helsingissä poismuuton vähenemisenä, kun asukkaat eivät heikon työllisyyden oloissa hankkineet uusia asuntoja ja väljyyskehitys pysähtyi. Tulomuuttoa vielä vauhditti kotikuntalain muutos vuonna 1994, mikä mahdollisti tilapäisesti Helsingissä asuneiden, erityisesti opiskelijoiden muutot vakinaisiksi asukkaiksi. On arvioitu, että tämä toi noin 7.000 uutta asukasta Helsinkiin.</p></div>
-            <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-3"><p>1990-luvun alussa käynnistyi ulkomaalaisten muutto Suomeen, johon Neuvostoliiton hajoamisella oli iso rooli. Aikaisemmin ulkomaalaisten muutoilla ei juurikaan ollut merkitystä Helsingin väestönkasvussa.</p></div>
-            <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-3"><p>Laman jälkeen 1990-luvun jälkipuolella seudun talous elpyi ja työllisyys koheni. Asuntomarkkinat pääsivät taas vauhtiin halpojen eurokorkojen siivittämänä ja alkoi ns. Nurmijärvi-ilmiön aika, kun helsinkiläiset muuttivat sankoin joukoin kehyskuntien pientaloihin. 2000-luvulle tultaessa seudulle tärkeä ICT-sektori ajautui vaikeuksiin, ja tulijat muusta Suomesta Helsinkiin vähenivät. Helsingin muuttotase kääntyi negatiiviseksi, ja vuosina 2002-2004 väkiluku jopa laski, yhteensä 672 hengellä. Muualta Suomesta tuleva muutto tulee nyt pääosin muiden suurten kaupunkiseutujen kautta, koska maaseudulta muuttoalttiiden nuorten ikäluokat ovat jo varsin pieniä.</p></div>
-            <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-3"><p>Helsingin kasvu alkoi taas 2005, kun talous taas lähti rullaamaan, ja samalla ulkomailta tuleva muutto kasvoi, erityisesti Virosta. Vuosikymmenen lopulla alkanut talouden taantuma pitkittyi, mikä heikensi varsinkin nuorten asemaa asuntomarkkinoilla, ja nuoret perheet jäivät aikaisempaa useammin pieniin asuntoihin Helsingin kantakaupunkiin. Tämä sekä kaupunkimaisen asumisen renesanssi alkoivat kasvattaa Helsinkiä ennätyksellisen nopeasti. Vuosien 2012-2014 suurempaa muuttovoittoa joutuu hakemaan 1960-luvun alkuvuosilta. Vuonna 2015 Suomeen tullut suuri turvapaikanhakijajoukko kasvattaa tällä hetkellä omalta osaltaan Helsinkiä, osa heistä muualta Suomesta muuttavina.</p></div>
+            <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2"><p>Helsingissä oli 155.735 asukasta vuonna 1917 ja nyt väkiluku on kasvanut 645.000:een. Väestön määrä on siis nelinkertaistunut itsenäisyyden aikana. Helsinki kasvoi erittäin nopeasti 1920- ja 1930-luvuilla, keskimäärin 3,3 prosentin vuosivauhtia. Kasvu tuli kokonaan muualta Suomesta muuttaneista, koska kuolleiden määrä oli lähes yhtä suuri kuin syntyneiden. 1930-luvun alun pulavuodet näkyvät erityisesti vuonna 1931, jolloin kirjattiin peräti 17.400 asukkaan muuttovoitto. Kasvu kiihtyi 1930-luvun loppua kohti, kunnes Talvisota katkaisi kehityksen. Tulijat olivat lähtöisin Uudenmaan lisäksi useimmiten Hämeen, Turun ja Porin sekä Viipurin lääneistä. Siirtokarjalaisten asuttaminen kasvatti sodan jälkeen Helsingin väestöä huomattavasti. Uudellamaalla asui 1940-luvun lopulla 70.000 Karjalasta lähtenyttä, joista pääosa Helsingissä.</p>
+            <p>Sotien jälkeen tehtiin suuri alueliitos vuonna 1946, joka toi yli 50.000 uutta helsinkiläistä. Vuosina 1948-1966 Helsinki kasvoi tasaisesti ja nopeasti, keskimäärin 2 % vuodessa. Kaupunkiin alkoi muuttaa aikaisempaa selvästi enemmän asukkaita, mutta myös poismuutto kasvoi, joten muuttovoitto, joka oli keskimäärin 6.500 asukasta vuodessa, alkoi pienentyä. Muuttajia alkoi nyt tulla enemmän myös kauempaa, Kuopion, Vaasan ja Oulun lääneistä Tuona aikana syntyivät kuitenkin ensin suuret ikäluokat ja kuolleisuus laski, joten vain 60 prosenttia Helsingin väestökasvusta johtui muuttovoitosta.</p>
+            <p>Suuri käänne tapahtui 1960-luvun lopulla. Kohonnut elintaso ja sen myötä asumistason parantaminen käänsivät Helsingin väestönkasvun naapurikuntiin, vaikka asuntoja rakennettiin paljon. Tulomuutto väheni maakunnista, joista alettiin nyt muuttaa myös Ruotsiin. Helsingin väkiluku putosi vuoden 1968 lopusta 1970-luvun loppuun 42.000 hengellä. Vastaavasti Espoo ja Vantaa kasvoivat nopeasti, Vantaalla väestönkasvu jopa ylitti 10 prosenttia useana vuonna 1970-luvun alussa. Helsingin kasvu oli sen sijaan hyvin vaatimatonta 1990-luvun alkuun saakka.</p>
+            <p>1990-luvun lama näkyi Helsingissä poismuuton vähenemisenä, kun asukkaat eivät heikon työllisyyden oloissa hankkineet uusia asuntoja ja väljyyskehitys pysähtyi. Tulomuuttoa vielä vauhditti kotikuntalain muutos vuonna 1994, mikä mahdollisti tilapäisesti Helsingissä asuneiden, erityisesti opiskelijoiden muutot vakinaisiksi asukkaiksi. On arvioitu, että tämä toi noin 7.000 uutta asukasta Helsinkiin.</p>
+            <p>1990-luvun alussa käynnistyi ulkomaalaisten muutto Suomeen, johon Neuvostoliiton hajoamisella oli iso rooli. Aikaisemmin ulkomaalaisten muutoilla ei juurikaan ollut merkitystä Helsingin väestönkasvussa.</p>
+            <p>Laman jälkeen 1990-luvun jälkipuolella seudun talous elpyi ja työllisyys koheni. Asuntomarkkinat pääsivät taas vauhtiin halpojen eurokorkojen siivittämänä ja alkoi ns. Nurmijärvi-ilmiön aika, kun helsinkiläiset muuttivat sankoin joukoin kehyskuntien pientaloihin. 2000-luvulle tultaessa seudulle tärkeä ICT-sektori ajautui vaikeuksiin, ja tulijat muusta Suomesta Helsinkiin vähenivät. Helsingin muuttotase kääntyi negatiiviseksi, ja vuosina 2002-2004 väkiluku jopa laski, yhteensä 672 hengellä. Muualta Suomesta tuleva muutto tulee nyt pääosin muiden suurten kaupunkiseutujen kautta, koska maaseudulta muuttoalttiiden nuorten ikäluokat ovat jo varsin pieniä.</p>
+            <p>Helsingin kasvu alkoi taas 2005, kun talous taas lähti rullaamaan, ja samalla ulkomailta tuleva muutto kasvoi, erityisesti Virosta. Vuosikymmenen lopulla alkanut talouden taantuma pitkittyi, mikä heikensi varsinkin nuorten asemaa asuntomarkkinoilla, ja nuoret perheet jäivät aikaisempaa useammin pieniin asuntoihin Helsingin kantakaupunkiin. Tämä sekä kaupunkimaisen asumisen renesanssi alkoivat kasvattaa Helsinkiä ennätyksellisen nopeasti. Vuosien 2012-2014 suurempaa muuttovoittoa joutuu hakemaan 1960-luvun alkuvuosilta. Vuonna 2015 Suomeen tullut suuri turvapaikanhakijajoukko kasvattaa tällä hetkellä omalta osaltaan Helsinkiä, osa heistä muualta Suomesta muuttavina.</p></div>
         </div>
       </section>
     </main>
