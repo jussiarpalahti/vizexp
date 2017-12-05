@@ -72,7 +72,7 @@ main {
 /* Section backgrounds */
 
 .section--content {
-  padding: 48px 0;
+  padding: 96px 0;
   position: relative;
 }
 
@@ -92,6 +92,10 @@ main {
   color: #ffffff;
 }
 
+.bg-hel-coat {
+  background-color: #0072c6;
+  color: #ffffff;
+}
 
 /* Site footer */
 
