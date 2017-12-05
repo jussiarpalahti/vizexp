@@ -3,6 +3,10 @@
     color: white;
 }
 
+#sliideri {
+  margin-top: 2em;
+}
+
 #sliideri .slider {
     width: 40em;
 }
@@ -16,7 +20,7 @@
 }
 
 #legend {
-    width: 15em;
+    max-width: 15em;
     background-color: white;
     padding: 0.3em 0.5em;
 }
@@ -36,6 +40,7 @@
     margin: -1.5em;
     background: white;
     display: inline-block;
+    text-align: right;
 }
 
 #suomi100logo {
@@ -47,3 +52,32 @@
     color: silver;
     font-size: 80%;
 }
+
+/* Timeline */
+
+.timeline-time {
+  text-align: right;
+  margin: 0;
+  color: #0072c6;
+}
+
+.timeline-content {
+  position: relative;
+  padding-left: 2em;
+  padding-bottom: 2em;
+  border-left: 2px #0072c6 solid;
+}
+
+.timeline-content::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: #0072c6;
+  border-radius: 0.75em;
+  position: absolute;
+  left: -0.55em;
+  top: 0.5em;
+}
+
+
