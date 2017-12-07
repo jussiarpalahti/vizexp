@@ -1,3 +1,6 @@
+.section--site-hero h1 {
+  font-size: 60px;
+}
 
 #ranger {
     color: white;
@@ -48,9 +51,11 @@
     height: auto;
 }
 
-#hero_pic_copy {
+.hero-pic-credit {
     color: silver;
     font-size: 80%;
+    text-align: right;
+    margin-bottom: 0.5em;
 }
 
 /* Timeline */
