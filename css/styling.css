@@ -1,5 +1,11 @@
 .section--site-hero h1 {
-  font-size: 60px;
+  font-size: 48px;
+}
+
+@media screen and (min-width: 768px) {
+  .section--site-hero h1 {
+    font-size: 60px;
+  }
 }
 
 #ranger {
@@ -64,6 +70,15 @@
   text-align: right;
   margin: 0;
   color: #0072c6;
+  font-size: 24px;
+  line-height: 1.5em;
+}
+
+@media screen and (min-width: 768px) {
+  .timeline-time {
+    font-size: 36px;
+    line-height: 1em;
+  }
 }
 
 .timeline-content {
